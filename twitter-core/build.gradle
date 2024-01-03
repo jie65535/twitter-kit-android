@@ -75,3 +75,41 @@ dependencies {
     }
     testCompile dependency.equalsVerifier
 }
+
+publishing {
+    def publishVersion= "3.4.0-SNAPSHOT"
+
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.ifun'
+            artifactId = 'twitter-core'
+            version = publishVersion
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+
+    def localProperties = new Properties()
+    def localPropertiesFile = project.rootProject.file('local.properties')
+    if (localPropertiesFile.exists()) {
+        localProperties.load(localPropertiesFile.newDataInputStream())
+    }
+
+    repositories {
+        maven {
+            if (publishVersion.endsWith('SNAPSHOT')) {
+                url 'http://192.168.0.12/nexus/repository/maven-snapshots/'
+            } else {
+                url 'http://192.168.0.12/nexus/repository/maven-releases/'
+            }
+            // allowInsecureProtocol true
+
+            credentials {
+                username = localProperties.getProperty("mavenUser")
+                password = localProperties.getProperty("mavenPassword")
+            }
+        }
+    }
+}
