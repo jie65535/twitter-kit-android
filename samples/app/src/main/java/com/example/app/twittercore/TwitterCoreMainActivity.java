@@ -21,23 +21,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.app.BaseActivity;
 import com.example.app.R;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 public class TwitterCoreMainActivity extends BaseActivity {
+    public static final String TAG = "Twitter";
 
     private TwitterLoginButton loginButton;
 
     /**
      * Constructs an intent for starting an instance of this activity.
+     *
      * @param packageContext A context from the same package as this activity.
      * @return Intent for starting an instance of this activity.
      */
@@ -60,6 +64,14 @@ public class TwitterCoreMainActivity extends BaseActivity {
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
+                TwitterSession data = result.data;
+                long userId = data.getUserId();
+                String userName = data.getUserName();
+                TwitterAuthToken authToken = data.getAuthToken();
+                String msg = "userId: " + userId + ", userName: " + userName + " , authToken:" + authToken.token + " | " + authToken.secret;
+                Log.i(TAG, msg);
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
                 requestEmailAddress(getApplicationContext(), result.data);
             }
 
