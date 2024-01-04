@@ -1,3 +1,13 @@
+# dyguests's changes
+
+原代码可以在 Android<=29 上使用。>=30需要做以下处理
+
+修改点：
+
+- 注释掉ssl相关代码 `CertificatePinner` in `OkHttpClientHelper`
+- 启用 WebView 的 JavaScript 在 `OAuthActivity`
+
+
 **Twitter will be discontinuing support for Twitter Kit on October 31, 2018. [Read the blog post here](https://blog.twitter.com/developer/en_us/topics/tools/2018/discontinuing-support-for-twitter-kit-sdk.html).**
 
 # Twitter Kit for Android
