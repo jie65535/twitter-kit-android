@@ -39,6 +39,8 @@ public class TwitterCoreMainActivity extends BaseActivity {
 
     private TwitterLoginButton loginButton;
 
+    private TwitterAuthClient client;
+
     /**
      * Constructs an intent for starting an instance of this activity.
      *
@@ -82,6 +84,33 @@ public class TwitterCoreMainActivity extends BaseActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+        findViewById(R.id.btn_login).setOnClickListener(view -> {
+            if (client == null) {
+                client = new TwitterAuthClient();
+            }
+            client.authorize(this, new Callback<TwitterSession>() {
+                @Override
+                public void success(Result<TwitterSession> result) {
+                    TwitterSession data = result.data;
+                    long userId = data.getUserId();
+                    String userName = data.getUserName();
+                    TwitterAuthToken authToken = data.getAuthToken();
+                    String msg = "userId: " + userId + ", userName: " + userName + ", authToken:" + authToken.token + " | " + authToken.secret;
+                    Log.i(TAG, msg);
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                    requestEmailAddress(getApplicationContext(), result.data);
+                }
+
+                @Override
+                public void failure(TwitterException exception) {
+                    // Upon error, show a toast message indicating that authorization request failed.
+                    Toast.makeText(getApplicationContext(), exception.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 
     private static void requestEmailAddress(final Context context, TwitterSession session) {
@@ -103,5 +132,9 @@ public class TwitterCoreMainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Pass the activity result to the saveSession button.
         loginButton.onActivityResult(requestCode, resultCode, data);
+        if (client == null) {
+            client = new TwitterAuthClient();
+        }
+        client.onActivityResult(requestCode, resultCode, data);
     }
 }
