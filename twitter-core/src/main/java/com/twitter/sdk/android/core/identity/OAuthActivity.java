@@ -55,6 +55,7 @@ public class OAuthActivity extends Activity implements OAuthController.Listener 
 
         spinner = findViewById(R.id.tw__spinner);
         webView = findViewById(R.id.tw__web_view);
+        webView.getSettings().setJavaScriptEnabled(true);
 
         final boolean showProgress;
         if (savedInstanceState != null) {
