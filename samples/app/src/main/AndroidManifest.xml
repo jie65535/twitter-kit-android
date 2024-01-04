@@ -32,17 +32,23 @@
         <activity
             android:name=".TwitterSampleActivity"
             android:label="@string/twitter_app_name">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <!-- Activities for testing TwitterCore -->
+        <activity
+            android:name=".twittercore.TwitterCoreMainActivity"
+            android:label="@string/kit_twittercore">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <!-- Activities for testing TwitterCore -->
-        <activity
-            android:name=".twittercore.TwitterCoreMainActivity"
-            android:label="@string/kit_twittercore"/>
 
 <!--        &lt;!&ndash; Activities for testing TweetComposer &ndash;&gt;-->
 <!--        <activity-->

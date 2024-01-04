@@ -31,3 +31,5 @@ captures/
 
 twitter.properties
 samples/app/debug
+#samples/twitterdemo/debug
+samples/twitterdemo/debug
