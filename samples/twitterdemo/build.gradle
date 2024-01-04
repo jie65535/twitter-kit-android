@@ -27,11 +27,12 @@ android {
 }
 
 dependencies {
-    implementation project(':twitter')
+    // implementation project(':twitter')
+    implementation 'com.ifun:twitter-core:3.4.0-20240103.125156-5'
 
     implementation dependency.appCompat
-    implementation dependency.design
-    implementation dependency.okHttpInterceptor
+    // implementation dependency.design
+    // implementation dependency.okHttpInterceptor
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
