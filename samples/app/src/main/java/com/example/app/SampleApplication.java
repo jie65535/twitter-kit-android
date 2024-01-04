@@ -24,6 +24,8 @@ import android.util.Log;
 import com.squareup.leakcanary.LeakCanary;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterApiClient;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
@@ -49,23 +51,27 @@ public class SampleApplication extends Application {
                 .penaltyLog()
                 .build());
 
-        Twitter.initialize(this);
+        TwitterConfig config = new TwitterConfig.Builder(this)
+                .twitterAuthConfig(new TwitterAuthConfig("eUhTxf2eEsremRu5ub2lF2tZt", "F0fKvrMPCLaMZjtJEmOyM7nwswoab3t619qgGoxj2oxfqubjQA"))
+                .build();
+        Twitter.initialize(config);
+//        Twitter.initialize(this);
 
-        final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        final OkHttpClient customClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor).build();
-
-        final TwitterSession activeSession = TwitterCore.getInstance()
-                .getSessionManager().getActiveSession();
-
-        final TwitterApiClient customApiClient;
-        if (activeSession != null) {
-            customApiClient = new TwitterApiClient(activeSession, customClient);
-            TwitterCore.getInstance().addApiClient(activeSession, customApiClient);
-        } else {
-            customApiClient = new TwitterApiClient(customClient);
-            TwitterCore.getInstance().addGuestApiClient(customApiClient);
-        }
+//        final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+//        final OkHttpClient customClient = new OkHttpClient.Builder()
+//                .addInterceptor(loggingInterceptor).build();
+//
+//        final TwitterSession activeSession = TwitterCore.getInstance()
+//                .getSessionManager().getActiveSession();
+//
+//        final TwitterApiClient customApiClient;
+//        if (activeSession != null) {
+//            customApiClient = new TwitterApiClient(activeSession, customClient);
+//            TwitterCore.getInstance().addApiClient(activeSession, customApiClient);
+//        } else {
+//            customApiClient = new TwitterApiClient(customClient);
+//            TwitterCore.getInstance().addGuestApiClient(customApiClient);
+//        }
     }
 }
