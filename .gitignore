@@ -30,3 +30,4 @@ captures/
 .externalNativeBuild
 
 twitter.properties
+samples/app/debug
