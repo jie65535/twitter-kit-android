@@ -112,15 +112,15 @@ publishing {
     repositories {
         maven {
             if (publishVersion.endsWith('SNAPSHOT')) {
-                url 'http://192.168.0.12/nexus/repository/maven-snapshots/'
+                url localProperties.getProperty("maven_snapshots")
             } else {
-                url 'http://192.168.0.12/nexus/repository/maven-releases/'
+                url localProperties.getProperty("maven_releases")
             }
             // allowInsecureProtocol true
 
             credentials {
-                username = localProperties.getProperty("mavenUser")
-                password = localProperties.getProperty("mavenPassword")
+                username = localProperties.getProperty("maven_user")
+                password = localProperties.getProperty("maven_password")
             }
         }
     }
