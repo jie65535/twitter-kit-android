@@ -81,7 +81,7 @@ publishing {
 
     publications {
         maven(MavenPublication) {
-            groupId = 'com.ifun'
+            groupId = 'com.fanhl'
             artifactId = 'twitter-core'
             version = publishVersion
 

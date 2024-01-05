@@ -69,7 +69,7 @@ android {
 
 dependencies {
     // api project(':twitter-core')
-    api 'com.ifun:twitter-core:3.4.0-20240103.125156-5'
+    api 'com.fanhl:twitter-core:3.4.0-20240103.125156-5'
 
     implementation dependency.picasso
     implementation dependency.supportCoreV4
@@ -93,7 +93,7 @@ publishing {
 
     publications {
         maven(MavenPublication) {
-            groupId = 'com.ifun'
+            groupId = 'com.fanhl'
             artifactId = 'twitter-ui'
             version = publishVersion
 
