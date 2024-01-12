@@ -1,3 +1,28 @@
+# jie65535 changes
+
+- 移除了 twitter-core 以外的其它代码
+- 修改了 gradle 版本
+- 修改了 twitter-core 的版本为 3.4.0
+
+## 使用说明
+
+1. 使用 `./gradlew assembleRelease` 编译发布版（或者直接从 [Releases](https://github.com/jie65535/twitter-kit-android/releases) 中下载）
+2. 在构建目录下找到 `twitter-core-release.arr` 添加到项目的 `lib_arr` 目录
+3. 在 `build.greadle` 里添加以下依赖：
+```grooxy
+    // Twitter core API
+    // 手工修复SSL证书问题 https://devcommunity.x.com/t/oauth-request-token-failure-in-android-ios-app-with-ssl-certificate-pinning-error/209247/4
+    implementation files('libs_aar/twitter-core-3.4.0.aar') // 本仓库构建的aar
+    // twitter-core的依赖  不添加以下依赖会导致 btn_twitter_login.setCallback(new Callback<TwitterSession>() 报错找不到 Callback 的实现类
+    implementation('com.squareup.retrofit2:retrofit:2.9.0')
+    implementation('com.squareup.retrofit2:converter-gson:2.9.0')
+//    // 官方SDK存在问题，见上方连接
+//    implementation('com.twitter.sdk.android:twitter-core:3.3.0@aar') {
+//        transitive = true;
+//    }
+```
+4. 后续和官方SDK用法相同，如果你用到了不止core的部分，可以从上游仓库构建，起码我只需要core部分。
+
 # dyguests's changes
 
 原代码可以在 Android<=29 上使用。>=30需要做以下处理
@@ -7,6 +32,7 @@
 - 注释掉ssl相关代码 `CertificatePinner` in `OkHttpClientHelper`
 - 启用 WebView 的 JavaScript 在 `OAuthActivity`
 
+---
 
 **Twitter will be discontinuing support for Twitter Kit on October 31, 2018. [Read the blog post here](https://blog.twitter.com/developer/en_us/topics/tools/2018/discontinuing-support-for-twitter-kit-sdk.html).**
 
